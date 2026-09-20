@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jodunt Doughnut</title>
+    <title>Jodunt Doughnut - Laporan Keuangan</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
@@ -13,7 +13,7 @@
     <!-- Supabase JS Client v2 -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         @media print {
             .no-print { display: none !important; }
@@ -22,45 +22,42 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col font-sans">
 
     <!-- TOP NAVIGATION / HEADER -->
     <header class="bg-indigo-900 text-white shadow-md sticky top-0 z-30 no-print">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <!-- LOGO BARU JODUNT -->
-                <!-- LOGO JODUNT VECTOR (HEADER) -->
-<div class="bg-white p-1 rounded-xl shadow-md flex items-center justify-center w-10 h-10 overflow-hidden border border-indigo-200">
-    <svg viewBox="0 0 200 200" class="w-full h-full text-slate-900" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M 30 90 C 30 35, 170 35, 170 90 C 170 140, 30 140, 30 90 Z" />
-        <path d="M 32 95 Q 60 130, 85 100 T 135 110 T 168 90" />
-        <line x1="60" y1="58" x2="72" y2="48" stroke-width="8" />
-        <line x1="85" y1="48" x2="95" y2="38" stroke-width="8" />
-        <line x1="115" y1="48" x2="128" y2="38" stroke-width="8" />
-        <line x1="145" y1="58" x2="155" y2="48" stroke-width="8" />
-        <line x1="62" y1="78" x2="75" y2="70" stroke-width="8" />
-        <line x1="95" y1="78" x2="108" y2="70" stroke-width="8" />
-        <line x1="130" y1="78" x2="142" y2="70" stroke-width="8" />
-        <text x="100" y="180" text-anchor="middle" fill="currentColor" stroke="none" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="36" letter-spacing="2">JODUNT</text>
-    </svg>
-</div>
+                <!-- LOGO JODUNT SVG (HEADER) -->
+                <div class="bg-white p-1 rounded-xl shadow-md flex items-center justify-center w-10 h-10 overflow-hidden border border-indigo-200 shrink-0">
+                    <svg viewBox="0 0 200 200" class="w-full h-full text-slate-900" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M 30 90 C 30 35, 170 35, 170 90 C 170 140, 30 140, 30 90 Z" />
+                        <path d="M 32 95 Q 60 130, 85 100 T 135 110 T 168 90" />
+                        <line x1="60" y1="58" x2="72" y2="48" stroke-width="8" />
+                        <line x1="85" y1="48" x2="95" y2="38" stroke-width="8" />
+                        <line x1="115" y1="48" x2="128" y2="38" stroke-width="8" />
+                        <line x1="145" y1="58" x2="155" y2="48" stroke-width="8" />
+                        <line x1="62" y1="78" x2="75" y2="70" stroke-width="8" />
+                        <line x1="95" y1="78" x2="108" y2="70" stroke-width="8" />
+                        <line x1="130" y1="78" x2="142" y2="70" stroke-width="8" />
+                        <text x="100" y="180" text-anchor="middle" fill="currentColor" stroke="none" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="36" letter-spacing="2">JODUNT</text>
+                    </svg>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold tracking-tight flex items-center gap-1.5">
-                        Jodunt Doughnut<span class="text-xs font-normal text-indigo-200 bg-indigo-800/80 px-2 py-0.5 rounded-md border border-indigo-700">JODUNT</span>
+                    <h1 class="text-lg font-bold tracking-tight flex items-center gap-2">
+                        <span>Jodunt Doughnut</span>
+                        <span class="text-[10px] font-semibold text-indigo-200 bg-indigo-800 px-2 py-0.5 rounded-md border border-indigo-700 uppercase">Jodunt</span>
                     </h1>
-                    <p class="text-[11px] text-indigo-300">Laporan Keuangan</p>
+                    <p class="text-[11px] text-indigo-300">Laporan Keuangan & Cloud Sync</p>
                 </div>
             </div>
 
             <div class="flex items-center gap-3">
-                <!-- Config Supabase Button -->
                 <button onclick="openConfigModal()" class="text-xs bg-indigo-800 hover:bg-indigo-700 px-3 py-1.5 rounded-lg border border-indigo-700 transition flex items-center gap-1.5">
                     <i class="fa-solid fa-key text-amber-400"></i>
                     <span id="supabaseStatusBadge">Set API Key</span>
                 </button>
 
-                <!-- Auth Info & User Profile -->
                 <div id="userHeaderProfile" class="hidden flex items-center gap-3 border-l border-indigo-800 pl-3">
                     <div class="text-right hidden md:block">
                         <p id="userDisplayName" class="text-xs font-semibold">User</p>
@@ -76,39 +73,37 @@
     </header>
 
     <!-- AUTHENTICATION SCREEN (LOGIN / REGISTER) -->
-    <div id="authScreen" class="flex-1 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-xl border border-slate-100 max-w-md w-full p-6 sm:p-8 relative overflow-hidden">
+    <div id="authScreen" class="flex-1 flex items-center justify-center p-4 min-h-[85vh]">
+        <div class="bg-white rounded-2xl shadow-xl border border-slate-200 max-w-md w-full p-6 sm:p-8 relative overflow-hidden my-auto">
             <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
             
+            <!-- HEADER FORM & LOGO -->
             <div class="text-center mb-6">
-                <!-- LOGO BARU DI HALAMAN LOGIN -->
-                <!-- LOGO JODUNT VECTOR (LOGIN SCREEN) -->
-<div class="inline-flex items-center justify-center w-24 h-24 rounded-2xl bg-white border border-slate-200 p-2 mb-3 shadow-sm overflow-hidden">
-    <svg viewBox="0 0 200 200" class="w-full h-full text-slate-900" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M 30 90 C 30 35, 170 35, 170 90 C 170 140, 30 140, 30 90 Z" />
-        <path d="M 32 95 Q 60 130, 85 100 T 135 110 T 168 90" />
-        <line x1="60" y1="58" x2="72" y2="48" stroke-width="8" />
-        <line x1="85" y1="48" x2="95" y2="38" stroke-width="8" />
-        <line x1="115" y1="48" x2="128" y2="38" stroke-width="8" />
-        <line x1="145" y1="58" x2="155" y2="48" stroke-width="8" />
-        <line x1="62" y1="78" x2="75" y2="70" stroke-width="8" />
-        <line x1="95" y1="78" x2="108" y2="70" stroke-width="8" />
-        <line x1="130" y1="78" x2="142" y2="70" stroke-width="8" />
-        <text x="100" y="180" text-anchor="middle" fill="currentColor" stroke="none" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="36" letter-spacing="2">JODUNT</text>
-    </svg>
-</div>
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-slate-50 border border-slate-200 p-2 mb-3 shadow-sm overflow-hidden">
+                    <svg viewBox="0 0 200 200" class="w-full h-full text-slate-900" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M 30 90 C 30 35, 170 35, 170 90 C 170 140, 30 140, 30 90 Z" />
+                        <path d="M 32 95 Q 60 130, 85 100 T 135 110 T 168 90" />
+                        <line x1="60" y1="58" x2="72" y2="48" stroke-width="8" />
+                        <line x1="85" y1="48" x2="95" y2="38" stroke-width="8" />
+                        <line x1="115" y1="48" x2="128" y2="38" stroke-width="8" />
+                        <line x1="145" y1="58" x2="155" y2="48" stroke-width="8" />
+                        <line x1="62" y1="78" x2="75" y2="70" stroke-width="8" />
+                        <line x1="95" y1="78" x2="108" y2="70" stroke-width="8" />
+                        <line x1="130" y1="78" x2="142" y2="70" stroke-width="8" />
+                        <text x="100" y="180" text-anchor="middle" fill="currentColor" stroke="none" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="36" letter-spacing="2">JODUNT</text>
+                    </svg>
                 </div>
-                <h2 id="authTitle" class="text-2xl font-bold text-slate-800">JODUNT</h2>
-                <p id="authSubtitle" class="text-xs text-slate-500 mt-1">Laporan Keuangan</p>
+                <h2 id="authTitle" class="text-2xl font-bold text-slate-800">Masuk Akun JODUNT</h2>
+                <p id="authSubtitle" class="text-xs text-slate-500 mt-1">Kelola transaksi & laporan keuangan secara realtime</p>
             </div>
 
             <!-- TAB SWITCHER -->
             <div class="flex bg-slate-100 p-1 rounded-xl mb-6 text-xs font-semibold">
-                <button id="tabLoginBtn" onclick="switchAuthTab('login')" class="flex-1 py-2 rounded-lg bg-white text-indigo-600 shadow-sm transition">Masuk</button>
-                <button id="tabRegisterBtn" onclick="switchAuthTab('register')" class="flex-1 py-2 rounded-lg text-slate-500 hover:text-slate-800 transition">Daftar Baru</button>
+                <button id="tabLoginBtn" type="button" onclick="switchAuthTab('login')" class="flex-1 py-2 rounded-lg bg-white text-indigo-600 shadow-sm transition">Masuk</button>
+                <button id="tabRegisterBtn" type="button" onclick="switchAuthTab('register')" class="flex-1 py-2 rounded-lg text-slate-500 hover:text-slate-800 transition">Daftar Baru</button>
             </div>
 
-            <!-- AUTH FORM -->
+            <!-- FORM INPUT (FULL VERTICAL) -->
             <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
                 <div id="fullNameGroup" class="hidden">
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Nama Lengkap</label>
@@ -118,7 +113,7 @@
                     </div>
                 </div>
 
-                <div>
+                <div class="block w-full">
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Alamat Email</label>
                     <div class="relative">
                         <i class="fa-solid fa-envelope absolute left-3 top-3 text-slate-400 text-sm"></i>
@@ -126,7 +121,7 @@
                     </div>
                 </div>
 
-                <div>
+                <div class="block w-full">
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Kata Sandi</label>
                     <div class="relative">
                         <i class="fa-solid fa-key absolute left-3 top-3 text-slate-400 text-sm"></i>
@@ -134,7 +129,6 @@
                     </div>
                 </div>
 
-                <!-- Alert Message -->
                 <div id="authAlert" class="hidden p-3 rounded-lg text-xs"></div>
 
                 <button type="submit" id="authSubmitBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-lg shadow-md hover:shadow-lg transition duration-200 flex items-center justify-center gap-2">
@@ -148,8 +142,8 @@
                 <div class="relative flex justify-center text-xs uppercase"><span class="bg-white px-2 text-slate-400">Atau</span></div>
             </div>
 
-            <!-- Demo Mode Button -->
-            <button onclick="enableDemoMode()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-2 rounded-lg text-xs transition flex items-center justify-center gap-2">
+            <!-- DEMO MODE BUTTON -->
+            <button type="button" onclick="enableDemoMode()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-2.5 rounded-lg text-xs transition flex items-center justify-center gap-2">
                 <i class="fa-solid fa-laptop-code text-slate-500"></i>
                 <span>Gunakan Mode Demo (Tanpa Database)</span>
             </button>
@@ -159,11 +153,10 @@
     <!-- MAIN DASHBOARD CONTENT -->
     <main id="appScreen" class="hidden flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
-        <!-- DASHBOARD HEADER BAR -->
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-slate-100">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-slate-200">
             <div>
                 <div class="flex items-center gap-2">
-                    <h2 class="text-xl font-bold text-slate-800">Ringkasan Keuangan Jodunt</h2>
+                    <h2 class="text-xl font-bold text-slate-800">Ringkasan Keuangan JODUNT</h2>
                     <span id="dataModeBadge" class="text-[10px] px-2 py-0.5 rounded-full font-semibold bg-emerald-100 text-emerald-800">Supabase Connected</span>
                 </div>
                 <p class="text-xs text-slate-500 mt-0.5">Kelola arus kas, laba rugi, dan transaksi dalam satu tempat.</p>
@@ -183,8 +176,7 @@
 
         <!-- KPI CARDS -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <!-- Total Pemasukan -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm relative overflow-hidden">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-xs font-medium text-slate-500">Total Pemasukan</p>
@@ -199,8 +191,7 @@
                 </div>
             </div>
 
-            <!-- Total Pengeluaran -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm relative overflow-hidden">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-xs font-medium text-slate-500">Total Pengeluaran</p>
@@ -215,8 +206,7 @@
                 </div>
             </div>
 
-            <!-- Laba / Rugi Bersih -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm relative overflow-hidden">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-xs font-medium text-slate-500">Laba / (Rugi) Bersih</p>
@@ -232,10 +222,9 @@
             </div>
         </div>
 
-        <!-- VISUALIZATION & REPORTS GRID -->
+        <!-- CHARTS & REPORTS -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- GRAFIK ARUS KAS -->
-            <div class="lg:col-span-2 bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col">
+            <div class="lg:col-span-2 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
                         <i class="fa-solid fa-chart-line text-indigo-600"></i>
@@ -247,8 +236,7 @@
                 </div>
             </div>
 
-            <!-- RINGKASAN LABA RUGI FORMAL -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div>
                     <div class="border-b border-slate-100 pb-3 mb-3">
                         <h3 class="text-sm font-bold text-slate-800">Laporan Laba Rugi</h3>
@@ -271,15 +259,15 @@
                     </div>
                 </div>
 
-                <div class="mt-6 bg-slate-50 p-3 rounded-xl border border-slate-200/60 text-[11px] text-slate-500">
+                <div class="mt-6 bg-slate-50 p-3 rounded-xl border border-slate-200 text-[11px] text-slate-500">
                     <i class="fa-solid fa-circle-info text-indigo-500 mr-1"></i>
                     Data disinkronkan secara aman ke database Supabase Cloud.
                 </div>
             </div>
         </div>
 
-        <!-- TRANSACTIONS TABLE SECTION -->
-        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <!-- TRANSACTIONS TABLE -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
             <div class="p-4 sm:p-5 border-b border-slate-100 flex flex-col sm:flex-row gap-3 justify-between items-start sm:items-center">
                 <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
                     <i class="fa-solid fa-list-check text-indigo-600"></i>
@@ -330,10 +318,9 @@
         </div>
     </main>
 
-    <!-- FOOTER -->
     <footer class="bg-white border-t border-slate-200 py-4 mt-auto no-print">
         <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-400">
-            &copy; 2026 Jodunt Doughnut- Platform Laporan Keuangan Interaktif 
+            &copy; 2026 Jodunt Doughnut - Platform Laporan Keuangan Interaktif Terintegrasi Supabase
         </div>
     </footer>
 
@@ -348,7 +335,7 @@
                 <button onclick="closeConfigModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <p class="text-xs text-slate-500">Masukkan Project URL dan Anon Key dari dashboard Supabase Anda (Project Settings -> API).</p>
+            <p class="text-xs text-slate-500">Masukkan Project URL dan Anon Key dari dashboard Supabase Anda.</p>
 
             <div class="space-y-3">
                 <div>
@@ -436,14 +423,14 @@
         let transactions = [];
         let chartInstance = null;
 
-        const INCOME_CATEGORIES = ['Penjualan Donut/Kue', 'Investasi', 'Layanan', 'Hibah/Bonus', 'Pemasukan Lainnya'];
-        const EXPENSE_CATEGORIES = ['Operasional', 'Gaji Karyawan', 'Bahan Baku (Tepung/Gula)', 'Sewa & Utilitas', 'Pemasaran', 'Pengeluaran Lainnya'];
+        const INCOME_CATEGORIES = ['Penjualan Donut/Kue', 'Investasi', 'Layanan Catering', 'Bonus', 'Pemasukan Lainnya'];
+        const EXPENSE_CATEGORIES = ['Operasional', 'Gaji Karyawan', 'Bahan Baku (Tepung/Gula/Cokelat)', 'Sewa & Utilitas', 'Pemasaran', 'Pengeluaran Lainnya'];
 
         const DEMO_TRANSACTIONS = [
-            { id: '1', type: 'income', category: 'Penjualan Donut/Kue', amount: 8500000, description: 'Penjualan Paket Donut JODUNT', transaction_date: new Date(Date.now() - 86400000*3).toISOString().split('T')[0] },
-            { id: '2', type: 'expense', category: 'Bahan Baku (Tepung/Gula)', amount: 2100000, description: 'Beli tepung terigu, mentega, dan meses', transaction_date: new Date(Date.now() - 86400000*2).toISOString().split('T')[0] },
-            { id: '3', type: 'expense', category: 'Operasional', amount: 650000, description: 'Biaya listrik & kemasan box JODUNT', transaction_date: new Date(Date.now() - 86400000*1).toISOString().split('T')[0] },
-            { id: '4', type: 'income', category: 'Penjualan Donut/Kue', amount: 3200000, description: 'Pesanan catering donut ulang tahun', transaction_date: new Date().toISOString().split('T')[0] }
+            { id: '1', type: 'income', category: 'Penjualan Donut/Kue', amount: 8500000, description: 'Penjualan Donut JODUNT Paket Lusinan', transaction_date: new Date(Date.now() - 86400000*3).toISOString().split('T')[0] },
+            { id: '2', type: 'expense', category: 'Bahan Baku (Tepung/Gula/Cokelat)', amount: 2100000, description: 'Pembelian tepung terigu, mentega, dan topping', transaction_date: new Date(Date.now() - 86400000*2).toISOString().split('T')[0] },
+            { id: '3', type: 'expense', category: 'Operasional', amount: 650000, description: 'Biaya listrik toko & kemasan box JODUNT', transaction_date: new Date(Date.now() - 86400000*1).toISOString().split('T')[0] },
+            { id: '4', type: 'income', category: 'Layanan Catering', amount: 3200000, description: 'Pesanan catering donut acara ulang tahun', transaction_date: new Date().toISOString().split('T')[0] }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -538,7 +525,7 @@
                         options: { data: { full_name: fullName } }
                     });
                     if (error) throw error;
-                    showAuthAlert("Registrasi berhasil! Silakan login dengan akun Anda.", "success");
+                    showAuthAlert("Registrasi berhasil! Silakan masuk dengan email & kata sandi Anda.", "success");
                     switchAuthTab('login');
                 } else {
                     const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
