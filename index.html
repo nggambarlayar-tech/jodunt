@@ -28,11 +28,10 @@
     <header class="bg-indigo-900 text-white shadow-md sticky top-0 z-30 no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <!-- LOGO JODUNT SVG (HEADER) -->
                 <!-- LOGO HEADER (FILE GAMBAR ASLI) -->
-<div class="bg-white p-1 rounded-xl shadow-md flex items-center justify-center w-10 h-10 overflow-hidden border border-indigo-200 shrink-0">
-    <img src="logo.jpg" alt="Logo JODUNT" class="w-full h-full object-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\"fa-solid fa-cookie-bite text-indigo-900 text-xl\"></i>
-</div>
+                <div class="bg-white p-1 rounded-xl shadow-md flex items-center justify-center w-10 h-10 overflow-hidden border border-indigo-200 shrink-0">
+                    <img src="logo.jpg" alt="Logo JODUNT" class="w-full h-full object-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\"fa-solid fa-cookie-bite text-indigo-900 text-xl\"></i>'">
+                </div>
                 <div>
                     <h1 class="text-lg font-bold tracking-tight flex items-center gap-2">
                         <span>Jodunt Doughnut</span>
@@ -69,9 +68,9 @@
             
             <div class="text-center mb-6">
                <!-- LOGO LOGIN (FILE GAMBAR ASLI) -->
-<div class="inline-flex items-center justify-center w-30 h-30 rounded-2xl bg-slate-50 border border-slate-200 p-2 mb-3 shadow-sm overflow-hidden">
-    <img src="logo.jpg" alt="Logo JODUNT" class="w-full h-full object-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\"fa-solid fa-cookie-bite text-4xl text-slate-700\"></i>
-</div>
+                <div class="inline-flex items-center justify-center w-30 h-30 rounded-2xl bg-slate-50 border border-slate-200 p-2 mb-3 shadow-sm overflow-hidden">
+                    <img src="logo.jpg" alt="Logo JODUNT" class="w-full h-full object-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\"fa-solid fa-cookie-bite text-4xl text-slate-700\"></i>'">
+                </div>
             </div>
 
             <div class="flex bg-slate-100 p-1 rounded-xl mb-6 text-xs font-semibold">
@@ -88,7 +87,6 @@
                     </div>
                 </div>
 
-                <!-- DIUBAH DARI EMAIL MENJADI PENGGUNA -->
                 <div class="block w-full">
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Nama Pengguna</label>
                     <div class="relative">
@@ -105,7 +103,6 @@
                     </div>
                 </div>
 
-                <!-- DITAMBAHKAN OPTION SIMPAN PASSWORD -->
                 <div id="rememberGroup" class="flex items-center justify-between text-xs pt-1">
                     <label class="flex items-center gap-2 cursor-pointer text-slate-600 hover:text-slate-800 select-none">
                         <input type="checkbox" id="rememberPasswordCheck" class="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 accent-indigo-600">
@@ -302,6 +299,7 @@
                     <span>Riwayat Transaksi</span>
                 </h3>
 
+                <!-- Container Pencarian & Tombol -->
                 <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
                     <div class="relative flex-1 sm:w-48">
                         <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
@@ -314,6 +312,12 @@
                         <option value="expense">Pengeluaran</option>
                     </select>
 
+                    <!-- TOMBOL SIMPAN LUNAS (Awalnya disembunyikan) -->
+                    <button id="btnSimpanLunas" onclick="simpanStatusLunas()" class="hidden bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 no-print shadow-sm">
+                        <i class="fa-solid fa-check-double"></i>
+                        <span id="textSimpanLunas">Simpan Lunas</span>
+                    </button>
+
                     <button onclick="exportCSV()" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 no-print">
                         <i class="fa-solid fa-file-excel"></i>
                         <span>Ekspor CSV</span>
@@ -325,10 +329,12 @@
                 <table class="w-full text-left border-collapse text-xs">
                     <thead>
                         <tr class="bg-slate-50 text-slate-500 border-b border-slate-100 font-semibold uppercase tracking-wider text-[10px]">
-                            <th class="p-3.5 pl-5">Tanggal</th>
+                            <th class="p-3.5 pl-5 w-10 text-center"><input type="checkbox" id="checkAll" onchange="toggleAllChecks(this)" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"></th>
+                            <th class="p-3.5">Tanggal</th>
                             <th class="p-3.5">Kategori</th>
                             <th class="p-3.5">Keterangan</th>
                             <th class="p-3.5">Jenis</th>
+                            <th class="p-3.5">Status</th>
                             <th class="p-3.5 text-right">Nominal</th>
                             <th class="p-3.5 text-center no-print">Aksi</th>
                         </tr>
@@ -454,11 +460,12 @@
         const INCOME_CATEGORIES = ['Penjualan Donut/Kue', 'Investasi', 'Layanan Catering', 'Bonus', 'Pemasukan Lainnya'];
         const EXPENSE_CATEGORIES = ['Operasional', 'Gaji Karyawan', 'Bahan Baku (Tepung/Gula/Cokelat)', 'Sewa & Utilitas', 'Pemasaran', 'Pengeluaran Lainnya'];
 
+        // Menambahkan status default pada data demo
         const DEMO_TRANSACTIONS = [
-            { id: '1', type: 'income', category: 'Penjualan Donut/Kue', amount: 8500000, description: 'Penjualan Donut JODUNT Paket Lusinan', transaction_date: new Date(Date.now() - 86400000*3).toISOString().split('T')[0] },
-            { id: '2', type: 'expense', category: 'Bahan Baku (Tepung/Gula/Cokelat)', amount: 2100000, description: 'Pembelian tepung terigu, mentega, dan topping', transaction_date: new Date(Date.now() - 86400000*2).toISOString().split('T')[0] },
-            { id: '3', type: 'expense', category: 'Operasional', amount: 650000, description: 'Biaya listrik toko & kemasan box JODUNT', transaction_date: new Date(Date.now() - 86400000*1).toISOString().split('T')[0] },
-            { id: '4', type: 'income', category: 'Layanan Catering', amount: 3200000, description: 'Pesanan catering donut acara ulang tahun', transaction_date: new Date().toISOString().split('T')[0] }
+            { id: '1', type: 'income', category: 'Penjualan Donut/Kue', amount: 8500000, description: 'Penjualan Donut JODUNT Paket Lusinan', transaction_date: new Date(Date.now() - 86400000*3).toISOString().split('T')[0], status: 'Belum Lunas' },
+            { id: '2', type: 'expense', category: 'Bahan Baku (Tepung/Gula/Cokelat)', amount: 2100000, description: 'Pembelian tepung terigu, mentega, dan topping', transaction_date: new Date(Date.now() - 86400000*2).toISOString().split('T')[0], status: 'Lunas' },
+            { id: '3', type: 'expense', category: 'Operasional', amount: 650000, description: 'Biaya listrik toko & kemasan box JODUNT', transaction_date: new Date(Date.now() - 86400000*1).toISOString().split('T')[0], status: 'Belum Lunas' },
+            { id: '4', type: 'income', category: 'Layanan Catering', amount: 3200000, description: 'Pesanan catering donut acara ulang tahun', transaction_date: new Date().toISOString().split('T')[0], status: 'Belum Lunas' }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -549,14 +556,14 @@
                 fullNameGrp.classList.add('hidden');
                 rememberGrp.classList.remove('hidden');
                 submitText.innerText = "Masuk Sekarang";
-                title.innerText = "Masuk Akun JODUNT";
+                if(title) title.innerText = "Masuk Akun JODUNT";
             } else {
                 regBtn.className = "flex-1 py-2 rounded-lg bg-white text-indigo-600 shadow-sm transition";
                 loginBtn.className = "flex-1 py-2 rounded-lg text-slate-500 hover:text-slate-800 transition";
                 fullNameGrp.classList.remove('hidden');
                 rememberGrp.classList.add('hidden');
                 submitText.innerText = "Daftar Akun Baru";
-                title.innerText = "Buat Akun JODUNT Baru";
+                if(title) title.innerText = "Buat Akun JODUNT Baru";
             }
             hideAuthAlert();
         }
@@ -788,7 +795,8 @@
             btn.disabled = true;
             spinner.classList.remove('hidden');
 
-            const payload = { type, transaction_date: date, amount, category, description };
+            // Set default status Belum Lunas
+            const payload = { type, transaction_date: date, amount, category, description, status: 'Belum Lunas' };
 
             try {
                 if (isDemoMode) {
@@ -839,6 +847,7 @@
 
             periodFilteredData.forEach(t => {
                 const amt = parseFloat(t.amount) || 0;
+                // Hanya hitung jika statusnya sudah Lunas (Opsional, saat ini semua dihitung)
                 if (t.type === 'income') { totalIncome += amt; incomeCnt++; }
                 else { totalExpense += amt; expenseCnt++; }
             });
@@ -869,6 +878,60 @@
             renderChart(periodFilteredData);
         }
 
+        // --- FITUR CHECKLIST & SIMPAN LUNAS ---
+        function toggleAllChecks(source) {
+            const checkboxes = document.querySelectorAll('.tx-checkbox');
+            checkboxes.forEach(cb => cb.checked = source.checked);
+            updateSimpanButton();
+        }
+
+        function updateSimpanButton() {
+            const checkedCount = document.querySelectorAll('.tx-checkbox:checked').length;
+            const btn = document.getElementById('btnSimpanLunas');
+            const textSpan = document.getElementById('textSimpanLunas');
+            
+            if (checkedCount > 0) {
+                btn.classList.remove('hidden');
+                textSpan.innerText = `Simpan (${checkedCount}) Lunas`;
+            } else {
+                btn.classList.add('hidden');
+            }
+        }
+
+        async function simpanStatusLunas() {
+            const checkboxes = document.querySelectorAll('.tx-checkbox:checked');
+            if (checkboxes.length === 0) return;
+            
+            const idsToUpdate = Array.from(checkboxes).map(cb => cb.value);
+            
+            try {
+                if (isDemoMode) {
+                    transactions = transactions.map(t => idsToUpdate.includes(t.id) ? { ...t, status: 'Lunas' } : t);
+                } else {
+                    // Update multiple rows ke Supabase
+                    const { error } = await supabaseClient
+                        .from('transactions')
+                        .update({ status: 'Lunas' })
+                        .in('id', idsToUpdate);
+                    
+                    if (error) throw error;
+                    
+                    // Update state lokal jika sukses
+                    transactions = transactions.map(t => idsToUpdate.includes(t.id) ? { ...t, status: 'Lunas' } : t);
+                }
+                
+                // Uncheck 'Pilih Semua'
+                const checkAll = document.getElementById('checkAll');
+                if (checkAll) checkAll.checked = false;
+                
+                updateDashboard();
+                alert(`Berhasil memperbarui ${idsToUpdate.length} transaksi menjadi Lunas.`);
+                
+            } catch (err) {
+                alert("Gagal mengupdate status: " + err.message);
+            }
+        }
+
         function renderTransactions(dataList) {
             const tbody = document.getElementById('transactionTableBody');
             const emptyState = document.getElementById('emptyState');
@@ -886,15 +949,29 @@
             if (filtered.length === 0) {
                 tbody.innerHTML = '';
                 emptyState.classList.remove('hidden');
+                updateSimpanButton();
                 return;
             }
 
             emptyState.classList.add('hidden');
+            
             tbody.innerHTML = filtered.map(t => {
                 const isInc = t.type === 'income';
+                const isLunas = t.status === 'Lunas';
+                
+                // Tampilan Checkbox & Status
+                const checkboxHtml = isLunas 
+                    ? `<i class="fa-solid fa-check text-emerald-500"></i>` 
+                    : `<input type="checkbox" value="${t.id}" class="tx-checkbox w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer" onchange="updateSimpanButton()">`;
+                
+                const statusBadge = isLunas
+                    ? `<span class="px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-700 font-semibold text-[10px]">Lunas</span>`
+                    : `<span class="px-2 py-0.5 rounded-md bg-amber-100 text-amber-700 font-semibold text-[10px]">Belum Lunas</span>`;
+
                 return `
                     <tr class="hover:bg-slate-50/80 transition">
-                        <td class="p-3.5 pl-5 font-medium whitespace-nowrap">${t.transaction_date}</td>
+                        <td class="p-3.5 pl-5 text-center">${checkboxHtml}</td>
+                        <td class="p-3.5 font-medium whitespace-nowrap">${t.transaction_date}</td>
                         <td class="p-3.5"><span class="px-2 py-0.5 rounded-md bg-slate-100 font-semibold text-[11px]">${t.category}</span></td>
                         <td class="p-3.5 text-slate-500 max-w-xs truncate">${t.description || '-'}</td>
                         <td class="p-3.5">
@@ -903,6 +980,7 @@
                                 ${isInc ? 'Pemasukan' : 'Pengeluaran'}
                             </span>
                         </td>
+                        <td class="p-3.5">${statusBadge}</td>
                         <td class="p-3.5 text-right font-bold ${isInc ? 'text-emerald-600' : 'text-rose-600'} whitespace-nowrap">
                             ${isInc ? '+' : '-'} ${formatRupiah(t.amount)}
                         </td>
@@ -914,6 +992,9 @@
                     </tr>
                 `;
             }).join('');
+            
+            // Sembunyikan tombol simpan saat render ulang agar jumlahnya reset
+            updateSimpanButton(); 
         }
 
         function renderChart(dataList) {
@@ -982,9 +1063,9 @@
             const periodData = getFilteredTransactionsByPeriod();
             if (!periodData.length) return alert("Tidak ada data transaksi pada periode ini untuk diekspor.");
             
-            let csv = 'ID,Tanggal,Jenis,Kategori,Keterangan,Nominal\n';
+            let csv = 'ID,Tanggal,Jenis,Kategori,Keterangan,Status,Nominal\n';
             periodData.forEach(t => {
-                csv += `"${t.id}","${t.transaction_date}","${t.type}","${t.category}","${(t.description||'').replace(/"/g, '""')}",${t.amount}\n`;
+                csv += `"${t.id}","${t.transaction_date}","${t.type}","${t.category}","${(t.description||'').replace(/"/g, '""')}","${t.status||'Belum Lunas'}",${t.amount}\n`;
             });
 
             const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
